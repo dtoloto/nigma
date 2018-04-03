@@ -1,0 +1,56 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+
+    <img src="../assets/imgs/nigmaLogo.png" alt="">
+    <div *ngIf="formEntrar">
+        <ion-list>
+
+            <ion-item color="dark">
+                <ion-input type="text" placeholder="Nome de Usuário" [(ngModel)]="userLogin"></ion-input>
+            </ion-item>
+
+            <ion-item color="dark">
+                <ion-input type="password" placeholder="Senha" [(ngModel)]="senhaLogin"></ion-input>
+            </ion-item>
+
+
+        </ion-list>
+
+
+        <button ion-button outline color="nigma" block (click)="entrar()" *ngIf="formEntrar">Entrar</button>
+        <button ion-button outline color="nigma" block (click)="criarConta()" *ngIf="formEntrar">Criar Conta</button>
+    </div>
+
+    <div *ngIf="!formEntrar">
+        <ion-list>
+
+            <ion-item color="dark">
+                <ion-input type="text" placeholder="Nome de Usuário" [(ngModel)]="userCadastro"></ion-input>
+            </ion-item>
+
+            <ion-item color="dark">
+                <ion-input type="email" placeholder="E-mail" [(ngModel)]="emailCadastro"></ion-input>
+            </ion-item>
+
+            <ion-item color="dark">
+                <ion-input type="password" placeholder="Senha" [(ngModel)]="senhaCadastro"></ion-input>
+            </ion-item>
+
+            <ion-item color="dark">
+                <ion-input type="password" placeholder="Confirmar Senha" [(ngModel)]="confirmarSenhaCadastro"></ion-input>
+            </ion-item>
+
+
+        </ion-list>
+
+
+        <button ion-button outline color="nigma" block (click)="cadastrar()">Cadastrar</button>
+        <button ion-button outline color="nigma" block (click)="voltar()">Voltar</button>
+    </div>
+
+</ion-content>

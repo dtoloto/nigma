@@ -1,0 +1,27 @@
+<ion-content padding>
+    <p>Bem vindo</p>
+
+    <ion-grid>
+
+        <ion-row *ngFor="let nivel of niveis">
+            <ion-col col-12>
+                <ion-card color="nigma" (click)="acessarLevel(nivel)">
+                    <ion-card-header>
+                        <!-- <ion-icon name="nuclear" item-start></ion-icon> -->
+                        {{ nivel.level }}
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-12>
+              <ion-card color="dark">
+                  <button ion-button outline color="nigma" block (click)="verRegras()">Regras</button>
+              </ion-card>
+          </ion-col>
+        </ion-row>
+
+    </ion-grid>
+
+</ion-content>

@@ -1,0 +1,27 @@
+page-login {
+
+    img{
+        width: 60%;
+        margin: 10% 0 20% 0;
+    }
+
+    .item{
+        color: map-get($colors, nigma);
+    }
+    .list-ios > .item-block:first-child, .list-md > .item-block:first-child{
+        border: 0;
+    }
+
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block,
+    .list-md > .item-block:last-child, .list-md > .item-wrapper:last-child .item-block{
+        border: 0;
+    }
+
+    .list-ios .item-block .item-inner, .list-md .item-block .item-inner{
+        border-bottom: 0.55px solid map-get($colors, nigma);
+    }
+
+    .text-input-ios, .text-input-md{
+        text-align: center;
+    }
+}

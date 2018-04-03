@@ -1,6 +1,8 @@
 {
   "name": "nigma",
-  "app_id": "1e2138c9",
+  "app_id": "0b450073",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
