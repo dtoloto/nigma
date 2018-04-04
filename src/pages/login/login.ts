@@ -46,12 +46,23 @@ export class LoginPage {
 
   entrar(){
 
-      let body = {
-           login: this.userLogin,
-           senha: this.senhaLogin
-       };
+      if(this.userLogin == null || this.senhaLogin == null){
+          this.alerta("Por favor, preencha todos os campos!");
 
-       this.postRequest("usuarios/login", body, "login");
+      } else{
+
+          let body = {
+               login: this.userLogin,
+               senha: this.senhaLogin
+           };
+
+           this.userLogin = '';
+           this.senhaLogin = '';
+
+           this.postRequest("usuarios/login", body, "login");
+      }
+
+
 
   }
 
