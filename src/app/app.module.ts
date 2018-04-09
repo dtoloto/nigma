@@ -17,6 +17,7 @@ import { EnigmasProvider } from '../providers/enigmas/enigmas';
 import { LoginProvider } from '../providers/login/login';
 import { HttpModule } from '@angular/http';
 
+
 @NgModule({
   declarations: [
     MyApp,

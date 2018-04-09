@@ -31,18 +31,17 @@ export class LoginPage {
     public emailCadastro: string;
     public senhaCadastro: string;
     public confirmarSenhaCadastro: string;
+    private urlApi = "https://hidden-depths-99670.herokuapp.com/enigmas";
+    public levels: any;
 
   constructor(
     public navCtrl: NavController,
     private http: Http,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    public loginProvider: LoginProvider,
-  ) {}
+    public loginProvider: LoginProvider
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+  ) {}
 
   entrar(){
 
@@ -56,14 +55,9 @@ export class LoginPage {
                senha: this.senhaLogin
            };
 
-           this.userLogin = '';
-           this.senhaLogin = '';
-
            this.postRequest("usuarios/login", body, "login");
       }
-
-
-
+      
   }
 
   criarConta(){
@@ -84,13 +78,8 @@ export class LoginPage {
               this.alerta('As senhas não conferem!');
           } else{
 
-              let body = {
-                   login: this.userCadastro,
-                   senha: this.senhaCadastro,
-                   email: this.emailCadastro
-               };
+              this.getRequest();
 
-               this.postRequest("usuarios", body, "cadastro");
           }
 
       }
@@ -99,12 +88,50 @@ export class LoginPage {
   }
 
 
+  getRequest(){
+
+      this.abreCarregando();
+
+      this.http.get(this.urlApi)
+      .map(res => res)
+      .subscribe(dados => {
+
+          const response = (dados as any);
+          const objeto_retorno = JSON.parse(response._body);
+
+          this.levels = objeto_retorno;
+
+          let body = {
+               login: this.userCadastro,
+               senha: this.senhaCadastro,
+               email: this.emailCadastro,
+               levels: this.levels
+           };
+
+           this.postRequest("usuarios", body, "cadastro");
+
+
+      },
+      err => {
+                this.fechaCarregando();
+
+                console.log(err);
+
+                this.alerta("Houve algum erro, tente novamente.");
+        }
+    );
+  }
+
+
   postRequest(rota, body, form){
 
       let url = 'https://hidden-depths-99670.herokuapp.com/';
       // let url = 'http://localhost:8000/';
 
-      this.abreCarregando();
+      if(form == 'login'){
+          this.abreCarregando();
+      }
+
       let erro;
 
       let headers = new Headers();
@@ -112,7 +139,9 @@ export class LoginPage {
 
       this.http.post(url + rota, JSON.stringify(body), {headers: headers})
       .map(res => res)
-      .subscribe(dados => {
+      .subscribe(
+
+        dados => {
 
 
           const response = (dados as any);
@@ -122,6 +151,8 @@ export class LoginPage {
           this.fechaCarregando();
 
           if(objeto_retorno){
+                this.userLogin = '';
+                this.senhaLogin = '';
                 erro = false;
                 this.loginProvider.setUsuario(objeto_retorno);
                 this.navCtrl.push(MenuPage);
@@ -134,7 +165,12 @@ export class LoginPage {
                 }
 
           }
-      }
+      },
+      err => {
+                this.fechaCarregando();
+                this.alerta("Houve algum erro, tente novamente.");
+        }
+
     );
 
   }

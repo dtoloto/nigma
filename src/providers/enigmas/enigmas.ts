@@ -1,4 +1,3 @@
-import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
@@ -14,33 +13,7 @@ export class EnigmasProvider {
 private levelSelecionado: any;
 private EnigmaSelecionado: any;
 
-private urlApi = "https://hidden-depths-99670.herokuapp.com/enigmas";
-
-  constructor(public http: Http) {
-
-  }
-
-  private listaLevels: any;
-
-  getListaEnigmas(){
-
-    //   this.http.get(this.urlApi)
-    //   .map(res => res)
-    //   .subscribe(dados => {
-    //
-    //
-    //       const response = (dados as any);
-    //       const objeto_retorno = JSON.parse(response._body);
-    //       console.log(objeto_retorno);
-    //
-    //      this.listaLevels = objeto_retorno;
-    //
-    //       console.log(this.listaLevels);
-    //   }
-    // );
-
-    return this.listaLevels;
-  }
+  constructor() {}
 
   setLevelSelecionado(level){
       this.levelSelecionado = level;

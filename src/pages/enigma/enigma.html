@@ -26,20 +26,20 @@
                     </h4>
 
                     <img ng-if="enigma.img" src="{{ enigma.img }}">
-                    
+
                 </ion-card>
 
           </ion-col>
-      </ion-row>  
+      </ion-row>
 
       <ion-row>
         <ion-col col-12>
             <ion-card color="dark">
-                <button [disabled]="!enigma.status" ion-button outline color="nigma" block (click)="resolverEnigma()">Resolver Enigma</button>
+                <button [disabled]="enigma.status" ion-button outline color="nigma" block (click)="resolverEnigma()">Resolver Enigma {{enigma.status}}</button>
             </ion-card>
         </ion-col>
       </ion-row>
-      
+
   </ion-grid>
 
 </ion-content>

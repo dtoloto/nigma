@@ -24,47 +24,20 @@ import 'rxjs/add/operator/map';
 export class MenuPage {
 
     public niveis: any;
-    private urlApi = "https://hidden-depths-99670.herokuapp.com/enigmas";
-    public loader;
+    private usuario: any;
 
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
         public enigmasProvider: EnigmasProvider,
         public loginProvider: LoginProvider,
-        public http: Http,
-        public loadingCtrl: LoadingController,
         private alertCtrl: AlertController
      ) {}
 
-    ionViewDidLoad() {
-        this.abreCarregando();
-
-        this.http.get(this.urlApi)
-        .map(res => res)
-        .subscribe(dados => {
-
-            const response = (dados as any);
-            const objeto_retorno = JSON.parse(response._body);
-
-            this.fechaCarregando();
-            this.niveis = objeto_retorno;
-
-
-        }
-      );
-
-    }
-
-    abreCarregando() {
-      this.loader = this.loadingCtrl.create({
-        content: "Aguarde"
-      });
-      this.loader.present();
-    }
-
-    fechaCarregando(){
-        this.loader.dismiss();
+    ionViewDidEnter() {
+        this.usuario = this.loginProvider.getUsuario();
+        console.log(this.usuario.levels);
+        this.niveis = this.usuario.levels;
     }
 
 
@@ -94,6 +67,8 @@ export class MenuPage {
                 handler: () => {
                   console.log('Buy clicked');
                   this.loginProvider.setUsuario({});
+                  this.enigmasProvider.setLevelSelecionado({});
+                  this.enigmasProvider.setEnigmaSelecionado({});
                   this.navCtrl.pop();
                 }
               }
