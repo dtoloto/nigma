@@ -91,8 +91,8 @@ export class EnigmaPage {
 
   atualizarEnigma(){
 
-      // let url = 'https://hidden-depths-99670.herokuapp.com/';
-      let url = 'http://localhost:8000/';
+      let url = 'https://hidden-depths-99670.herokuapp.com/';
+      // let url = 'http://localhost:8000/';
       let body = this.loginProvider.getUsuario();
       this.abreCarregando();
 
