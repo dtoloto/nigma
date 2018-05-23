@@ -1,6 +1,6 @@
 <ion-content padding>
-    <p>Bem vindo</p>
-
+    <br>
+    <h6 *ngIf="usuario">Bem vindo, {{ usuario.login }} - {{ usuario.pontuacao }} pts</h6>
     <ion-grid>
 
         <ion-row *ngFor="let nivel of niveis">
@@ -15,9 +15,28 @@
         </ion-row>
 
         <ion-row>
-          <ion-col col-12>
+          <ion-col col-6>
+              <ion-card color="dark">
+                  <button ion-button outline color="nigma" block (click)="ranking()">Ranking</button>
+              </ion-card>
+          </ion-col>
+          <ion-col col-6>
               <ion-card color="dark">
                   <button ion-button outline color="nigma" block (click)="verRegras()">Regras</button>
+              </ion-card>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6>
+              <ion-card color="dark">
+                  <button ion-button outline color="nigma" block (click)="musica()">
+                       <ion-icon name="musical-notes"></ion-icon>
+                  </button>
+              </ion-card>
+          </ion-col>
+          <ion-col col-6>
+              <ion-card color="dark">
+                  <button ion-button outline color="nigma" block (click)="verCreditos()">Créditos</button>
               </ion-card>
           </ion-col>
         </ion-row>

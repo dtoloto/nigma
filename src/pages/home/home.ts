@@ -10,7 +10,8 @@ import { EnigmaPage } from '../enigma/enigma';
 export class HomePage {
 
   public cards: any;
-
+  public usuario: any;
+  public teste = true;
     constructor(
         public navCtrl: NavController,
         private enigmasProvider: EnigmasProvider

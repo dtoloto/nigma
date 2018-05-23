@@ -18,7 +18,6 @@ export class LoginProvider {
 
     setUsuario(usuario){
         this.usuarioLogado = usuario;
-        console.log(this.usuarioLogado);
     }
 
     getUsuario(){

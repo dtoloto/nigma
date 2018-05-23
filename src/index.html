@@ -34,7 +34,16 @@
 
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
+  <audio id="myAudio">
+    <!-- <source src="horse.ogg" type="audio/ogg"> -->
+    <source src="assets/music/soundtrack.mp3" type="audio/mpeg">
+  </audio>
 
+  <script>
+      let x = document.getElementById("myAudio");
+      x.loop = true;
+      x.play();
+  </script>
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>
 

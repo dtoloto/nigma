@@ -27,6 +27,7 @@ export class EnigmaPage {
     public lat: any;
     public lng: any;
     public loader;
+    private usuario: any;
 
   constructor(
       public navCtrl: NavController,
@@ -41,7 +42,8 @@ export class EnigmaPage {
 
   ionViewDidEnter() {
     this.enigma = this.enigmasProvider.getEnigmaSelecionado();
-    console.log(this.enigma.status);
+    this.usuario = this.loginProvider.getUsuario();
+    // console.log(this.enigma.status);
   }
 
   resolverEnigma() {
@@ -65,8 +67,10 @@ export class EnigmaPage {
           text: 'Confirmar',
           handler: data => {
             if(data.resposta == this.enigma.resposta){
+                this.usuario.pontuacao += 70;
                 this.enigma.status = true;
-                this.atualizarEnigma();
+                this.enigma.dica.status = true;
+                this.atualizarEnigma(false);
 
             } else{
               this.errou();
@@ -81,19 +85,22 @@ export class EnigmaPage {
   }
 
   errou() {
+      let x:any = document.getElementById("errou");
+      x.play();
     let alert = this.alertCtrl.create({
       title: 'Resposta Errada',
-      subTitle: 'Não foi dessa vez...',
+      subTitle: 'Eu esperava mais de você...',
       buttons: ['Entendi']
     });
     alert.present();
   }
 
-  atualizarEnigma(){
+  atualizarEnigma(dica){
 
       let url = 'https://hidden-depths-99670.herokuapp.com/';
       // let url = 'http://localhost:8000/';
       let body = this.loginProvider.getUsuario();
+      console.log(body.pontuacao);
       this.abreCarregando();
 
       let erro;
@@ -108,17 +115,34 @@ export class EnigmaPage {
         dados => {
 
             this.fechaCarregando();
-            this.alerta('Parabéns','Você acertou!');
+
+            if(!dica){
+                let x:any = document.getElementById("acertou");
+                x.play();
+                this.alerta('Parabéns','Você acertou!');
+            }
+
 
       },
       err => {
                 this.fechaCarregando();
                 this.alerta('Ups!','Houve algum erro, tente novamente.');
+                this.usuario.pontuacao -= 70;
                 this.enigma.status = false;
         }
 
     );
 
+  }
+
+  obterDica(){
+      if(this.usuario.pontuacao >= 50){
+          this.enigma.dica.status = true;
+          this.usuario.pontuacao -= 50;
+          this.atualizarEnigma(true);
+      } else{
+          this.alerta('Ups!', 'Você não possui pontos suficientes para obter a dica');
+      }
   }
 
   abreCarregando() {

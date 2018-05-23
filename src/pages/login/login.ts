@@ -6,7 +6,7 @@ import { Http, Headers } from '@angular/http';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
-
+// import { NativeAudio } from '@ionic-native/native-audio';
 import 'rxjs/Rx';
 
 /**
@@ -39,9 +39,13 @@ export class LoginPage {
     private http: Http,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    public loginProvider: LoginProvider
-
+    public loginProvider: LoginProvider,
+    // private nativeAudio: NativeAudio
   ) {}
+
+  ionViewDidLoad(){
+      // this.nativeAudio.preloadSimple('uniqueId1', 'path/to/file.mp3').then(onSuccess, onError);
+  }
 
   entrar(){
 
@@ -57,7 +61,7 @@ export class LoginPage {
 
            this.postRequest("usuarios/login", body, "login");
       }
-      
+
   }
 
   criarConta(){
@@ -105,7 +109,8 @@ export class LoginPage {
                login: this.userCadastro,
                senha: this.senhaCadastro,
                email: this.emailCadastro,
-               levels: this.levels
+               levels: this.levels,
+               pontuacao: 100
            };
 
            this.postRequest("usuarios", body, "cadastro");
@@ -146,15 +151,20 @@ export class LoginPage {
 
           const response = (dados as any);
           const objeto_retorno = JSON.parse(response._body);
-          console.log(objeto_retorno);
+          // console.log(objeto_retorno);
 
           this.fechaCarregando();
 
           if(objeto_retorno){
                 this.userLogin = '';
                 this.senhaLogin = '';
+                this.userCadastro = '';
+                this.senhaCadastro = '';
+                this.confirmarSenhaCadastro = '';
+                this.emailCadastro = '';
                 erro = false;
                 this.loginProvider.setUsuario(objeto_retorno);
+                this.formEntrar = true;
                 this.navCtrl.push(MenuPage);
           } else{
 
